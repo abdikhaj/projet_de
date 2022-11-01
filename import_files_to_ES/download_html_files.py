@@ -9,8 +9,9 @@ url = 'https://fr.trustpilot.com/categories/hotels'
 html_response = requests.get(url=url)
   
 # create html file from the page saved
-with open("hotel_1.html", "w") as html_file:
-    html_file.write(html_response.text)
+with open("hotel_1.json", "w", encoding="utf-8") as html_file:
+    html_file.write('{"html":"' + html_response.text.replace('"', '\\"').replace('\n', '\\n').replace('\r', '\\r') + '"}')
+"""
 # convert html to json
 with open("hotel_1.html", "r") as html_file:
     html = html_file.read()
@@ -18,3 +19,4 @@ with open("hotel_1.html", "r") as html_file:
 # create json file 
 with open("hotel_1.json", "w") as file:
     json.dump(output_json, file)
+"""
