@@ -14,7 +14,7 @@ CREATE TABLE user (
  user_country VARCHAR,
  PRIMARY KEY (id) );
 
-DROP TABLE IF EXISTS review;
+
 CREATE TABLE review (
     id INTEGER NOT NULL, 
     title VARCHAR,
