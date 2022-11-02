@@ -6,6 +6,7 @@ company
 sub_sector
 sector
 
+
 '''
 
 CREATE TABLE user (
