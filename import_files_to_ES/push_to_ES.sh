@@ -1,0 +1,1 @@
+curl -XPUT localhost:9200/_bulk -H"Content-Type: application/json" --data-binary @test_1.json
