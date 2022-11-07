@@ -9,7 +9,7 @@ sector
 '''
 CREATE TABLE review (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    lastupdated_date default current_timestamp,
+    lastupdated_date TIMESTAMP default current_timestamp,
     company_id INTEGER,
     reviewUnitId VARCHAR,
     review_title VARCHAR,
@@ -33,7 +33,7 @@ CREATE TABLE review (
 
 CREATE TABLE company (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    lastupdated_date default current_timestamp,
+    lastupdated_date TIMESTAMP default current_timestamp,
     subSectorLevel1_id INTEGER,
     businessUnitId VARCHAR,
     website VARCHAR,
@@ -58,7 +58,7 @@ CREATE TABLE company (
 
 CREATE TABLE subSectorLevel1 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    lastupdated_date default current_timestamp,
+    lastupdated_date TIMESTAMP default current_timestamp,
     sector_id INTEGER,
     label_name VARCHAR,
     display_name VARCHAR,
@@ -69,7 +69,7 @@ CREATE TABLE subSectorLevel1 (
 
 CREATE TABLE sector (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    lastupdated_date default current_timestamp,
+    lastupdated_date TIMESTAMP default current_timestamp,
     label_name VARCHAR,
     display_name VARCHAR,
     UNIQUE(label_name),
