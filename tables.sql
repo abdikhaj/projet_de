@@ -7,50 +7,73 @@ sub_sector
 sector
 
 '''
-
-CREATE TABLE user (
- id INTEGER NOT NULL, 
- firstname VARCHAR,
- lastname VARCHAR,
- user_country VARCHAR,
- PRIMARY KEY (id) );
-
-
 CREATE TABLE review (
-    id INTEGER NOT NULL, 
-    title VARCHAR,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lastupdated_date default current_timestamp,
+    company_id INTEGER,
+    reviewUnitId VARCHAR,
+    review_title VARCHAR,
     review_text VARCHAR,
-    review_date DATE,
-    score INTEGER,
+    experience_date DATE,
+    publish_date DATE,
+    rating INTEGER,
+    isVerified VARCHAR,
+    user_id VARCHAR,
+    user_name VARCHAR,
+    user_nbOfReviews INTEGER,
+    user_country VARCHAR,
     response_company VARCHAR,
-    user_id INTEGER,
+    response_company_date DATE,
+    UNIQUE(reviewUnitId),
+    UNIQUE(company_id, user_id),
     PRIMARY KEY (id), 
-    FOREIGN KEY (user_id) REFERENCES user (id));
+    FOREIGN KEY (company_id) REFERENCES company (id));
 
 
 
 CREATE TABLE company (
-    id INTEGER NOT NULL, 
-    Company_name VARCHAR,
-    Company_country VARCHAR,
-    Company_score INTEGER,
-    review_id INTEGER,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lastupdated_date default current_timestamp,
+    subSectorLevel1_id INTEGER,
+    businessUnitId VARCHAR,
+    website VARCHAR,
+    display_name VARCHAR,
+    score INTEGER,
+    logoUrl VARCHAR,
+    postal_address VARCHAR,
+    postal_city VARCHAR,
+    postal_zipCode VARCHAR,
+    postal_country VARCHAR,
+    contact_website VARCHAR,
+    contact_email VARCHAR,
+    contact_phone VARCHAR,
+    reviews_resume VARCHAR,
+    reviews_keywords VARCHAR,
+    UNIQUE(businessUnitId),
+    UNIQUE(website),
+    UNIQUE(display_name),
     PRIMARY KEY (id), 
-    FOREIGN KEY (review_id) REFERENCES review (id));
+    FOREIGN KEY (subSectorLevel1_id) REFERENCES subSectorLevel1 (id));
 
 
-CREATE TABLE sub_sector (
-    id INTEGER NOT NULL, 
-    sub_sector_name VARCHAR,
-    company_id INTEGER,
+CREATE TABLE subSectorLevel1 (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lastupdated_date default current_timestamp,
     sector_id INTEGER,
+    label_name VARCHAR,
+    display_name VARCHAR,
+    UNIQUE(label_name),
+    UNIQUE(display_name),
     PRIMARY KEY (id), 
-    FOREIGN KEY (sector_id) REFERENCES sector (id)
-    FOREIGN KEY (company_id) REFERENCES company (id));
+    FOREIGN KEY (sector_id) REFERENCES sector (id));
 
 CREATE TABLE sector (
-    id INTEGER NOT NULL, 
-    sector VARCHAR,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    lastupdated_date default current_timestamp,
+    label_name VARCHAR,
+    display_name VARCHAR,
+    UNIQUE(label_name),
+    UNIQUE(display_name),
     PRIMARY KEY (id));
 
 
