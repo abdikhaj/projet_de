@@ -1,22 +1,45 @@
-import xmltojson
-import json
 import requests
-import html_to_json
+import re
 
-url = 'https://fr.trustpilot.com/categories/hotels'
+# list urls
+urlComp = 'https://fr.trustpilot.com/categories/hotels?page=1'
+urlCat = 'https://fr.trustpilot.com/categories'
+urlRev = 'https://fr.trustpilot.com/review/grandluxuryhotels.com'
 
 # Get the page through get() method
-html_response = requests.get(url=url)
-  
-# create html file from the page saved
-with open("hotel_1.json", "w", encoding="utf-8") as html_file:
-    html_file.write('{"html":"' + html_response.text.replace('"', '\\"').replace('\n', '\\n').replace('\r', '\\r') + '"}')
+html_respComp = requests.get(url=urlComp)
+html_respCat = requests.get(url=urlCat)
+html_respRev = requests.get(url=urlRev)
+
+# select only the data we need
+html_substr_comp = re.findall('"businesses"\:\[\{"businessUnitId".+\}\]\}\]\,"totalPages"', html_respComp.text)
+html_substr_cat = re.findall('"topCategories"\:\[\{.+\]\}\]\}\,"languages"', html_respCat.text)
+html_substr_rev = re.findall('"reviews"\:\[\{"id".+\}\]\,"products"', html_respRev.text)
+
+# transform to json
+html_comp = '{' + html_substr_comp[0][:-13] + '}'
+html_cat = '{' + html_substr_cat[0][:-12] + '}'
+html_rev = '{' + html_substr_rev[0][:-11] + '}'
+
+
+# create json_file
+with open("categories.json", "w", encoding='utf-8') as file:
+    file.write(html_cat)
+with open("hotel_1.json", "w", encoding='utf-8') as file:
+    file.write(html_comp)
+with open("reviews_1.json", "w", encoding='utf-8') as file:
+    file.write(html_rev)
+
 """
+with open("hotel_1.html", "w", encoding="utf-8") as html_file:
+    html_file.write('{' + html_substr[0][:-13] + '}')
+
 # convert html to json
 with open("hotel_1.html", "r") as html_file:
     html = html_file.read()
     output_json = html_to_json.convert(html)
-# create json file 
-with open("hotel_1.json", "w") as file:
-    json.dump(output_json, file)
+
+# create json file
+with open("hotel_1.json", "w", encoding='utf-8') as file:
+    json.dump(html_json, file, ensure_ascii=False)
 """
