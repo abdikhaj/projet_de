@@ -1,180 +1,95 @@
 PUT /reviews_1
 {
-    "reviews_1" : {
-      "mappings" : {
+  "mappings" : {
+    "properties" : {
+      "reviews" : {
         "properties" : {
-          "reviews" : {
-            "properties" : {
-              "consumer" : {
-                "properties" : {
-                  "countryCode" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "hasImage" : {
-                    "type" : "boolean"
-                  },
-                  "id" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "imageUrl" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "isVerified" : {
-                    "type" : "boolean"
-                  },
-                  "numberOfReviews" : {
-                    "type" : "long"
-                  }
-                }
-              },
-              "consumersReviewCountOnSameDomain" : {
-                "type" : "long"
-              },
-              "dates" : {
-                "properties" : {
-                  "experiencedDate" : {
-                    "type" : "date"
-                  },
-                  "publishedDate" : {
-                    "type" : "date"
-                  }
-                }
-              },
-              "filtered" : {
-                "type" : "boolean"
-              },
-              "hasUnhandledReports" : {
-                "type" : "boolean"
-              },
-              "id" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
-              },
-              "labels" : {
-                "properties" : {
-                  "verification" : {
-                    "properties" : {
-                      "createdDateTime" : {
-                        "type" : "date"
-                      },
-                      "isVerified" : {
-                        "type" : "boolean"
-                      },
-                      "reviewSourceName" : {
-                        "type" : "text",
-                        "fields" : {
-                          "keyword" : {
-                            "type" : "keyword",
-                            "ignore_above" : 256
-                          }
-                        }
-                      },
-                      "verificationLevel" : {
-                        "type" : "text",
-                        "fields" : {
-                          "keyword" : {
-                            "type" : "keyword",
-                            "ignore_above" : 256
-                          }
-                        }
-                      },
-                      "verificationSource" : {
-                        "type" : "text",
-                        "fields" : {
-                          "keyword" : {
-                            "type" : "keyword",
-                            "ignore_above" : 256
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "language" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
-              },
-              "likes" : {
-                "type" : "long"
-              },
-              "pending" : {
-                "type" : "boolean"
-              },
-              "rating" : {
-                "type" : "long"
-              },
-              "reply" : {
-                "properties" : {
-                  "message" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "publishedDate" : {
-                    "type" : "date"
-                  }
-                }
-              },
-              "text" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
-              },
-              "title" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
-              }
+          "consumer.countryCode" : {
+            "type" : "keyword"
+            },
+          "consumer.displayName" : {
+                "type" : "keyword"
+            },
+          "consumer.imageUrl" : {
+            "type" : "keyword"
+            },
+          "consumer.numberOfReviews" : {
+            "type" : "integer"
+            },
+          "consumer.hasImage" : {
+            "type" : "boolean"
+            },
+          "consumer.isVerified" : {
+            "type" : "boolean"
+            },
+          "consumer.id" : {
+            "type" : "keyword"
+            },
+          "consumersReviewCountOnSameDomain" : {
+            "type" : "integer"
+            },
+          "dates.experiencedDate" : {
+            "type" : "date"
+            },
+          "dates.publishedDate" : {
+            "type" : "keyword"
+            },
+          "dates.updatedDate" : {
+            "type" : "keyword"
+            },
+          "filtered" : {
+            "type" : "boolean"
+            },
+          "hasUnhandledReports" : {
+            "type" : "boolean"
+            },
+          "id" : {
+            "type" : "keyword"
+            },
+          "labels.merged" : {
+            "type" : "keyword"
+            },
+          "labels.verification.isVerified" : {
+            "type" : "boolean"
+            },
+          "labels.verification.createdDateTime" : {
+            "type" : "date"
+            },
+          "labels.verification.reviewSourceName" : {
+            "type" : "keyword"
+            },
+          "labels.verification.verificationSource" : {
+            "type" : "keyword"
+            },
+          "labels.verification.verificationLevel" : {
+            "type" : "keyword"
+            },
+          "language" : {
+            "type" : "keyword"
+            },
+          "likes" : {
+            "type" : "long"
+            },
+          "pending" : {
+            "type" : "boolean"
+            },
+          "rating" : {
+            "type" : "short"
+            },
+          "reply.message" : {
+            "type" : "test"
+            },
+          "reply.publishedDate" : {
+            "type" : "date"
+            },
+          "reply.updatedDate" : {
+            "type" : "date"
+            },
+          "text" : {
+            "type" : "text"
+            },
+          "title" : {
+            "type" : "text"
             }
           }
         }
@@ -186,147 +101,66 @@ PUT /reviews_1
 
 
 
-PUT /companies_1
+
+
+
+
+
+
+
+
+
+
+PUT /companies_2
 {
-    "companies_1" : {
       "mappings" : {
         "properties" : {
           "businesses" : {
             "properties" : {
               "businessUnitId" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               },
-              "categories" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "isPredicted" : {
-                    "type" : "boolean"
-                  }
-                }
+              "categories.categoryId" : {
+                "type" : "keyword"
               },
-              "contact" : {
-                "properties" : {
-                  "email" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "phone" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "website" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  }
-                }
+              "categories.displayName" : {
+                "type" : "keyword"
+              },
+              "categories.isPredicted" : {
+                "type" : "boolean"
+              },
+              "contact.website" : {
+                "type" : "keyword"
+              },
+              "contact.email" : {
+                "type" : "keyword"
+              },
+              "contact.phone" : {
+                "type" : "keyword"
               },
               "displayName" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               },
               "identifyingName" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               },
               "isRecommendedInCategories" : {
                 "type" : "boolean"
               },
-              "location" : {
-                "properties" : {
-                  "address" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "city" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "country" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  },
-                  "zipCode" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
-                  }
-                }
+              "location.address" : {
+                "type" : "text"
+              },
+              "location.city" : {
+                "type" : "keyword"
+              },
+              "location.zipCode" : {
+                "type" : "keyword"
+              },
+              "location.country" : {
+                "type" : "keyword"
               },
               "logoUrl" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               },
               "numberOfReviews" : {
                 "type" : "long"
@@ -335,15 +169,36 @@ PUT /companies_1
                 "type" : "long"
               },
               "trustScore" : {
-                "type" : "long"
+                "type" : "float"
               }
             }
           }
         }
       }
-    }
   }
 ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -359,946 +214,418 @@ PUT /cat_1
               "animals_pets" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "beauty_wellbeing" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "business_services" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "construction_manufactoring" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "education_training" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "electronics_technology" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "events_entertainment" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "food_beverages_tobacco" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "health_medical" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "hobbies_crafts" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "home_garden" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "home_services" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "legal_services_government" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "media_publishing" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "money_insurance" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "public_local_services" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "restaurants_bars" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "shopping_fashion" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "sports" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "travel_vacation" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "utilities" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               },
               "vehicles_transportation" : {
                 "properties" : {
                   "categoryId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "childrenCategories" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "displayName" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   },
                   "numberOfBusinesses" : {
                     "type" : "long"
                   },
                   "parentId" : {
-                    "type" : "text",
-                    "fields" : {
-                      "keyword" : {
-                        "type" : "keyword",
-                        "ignore_above" : 256
-                      }
-                    }
+                    "type" : "keyword"
                   }
                 }
               }
@@ -1307,43 +634,19 @@ PUT /cat_1
           "topCategories" : {
             "properties" : {
               "categoryId" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               },
               "childrenCategories" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               },
               "displayName" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               },
               "numberOfBusinesses" : {
                 "type" : "long"
               },
               "parentId" : {
-                "type" : "text",
-                "fields" : {
-                  "keyword" : {
-                    "type" : "keyword",
-                    "ignore_above" : 256
-                  }
-                }
+                "type" : "keyword"
               }
             }
           }
@@ -1352,3 +655,6 @@ PUT /cat_1
     }
   }
 ;
+
+
+
