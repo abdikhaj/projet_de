@@ -8,4 +8,12 @@ with open("hotel_1.json", "r") as f:
     resp = client.bulk(body=[f.read()])
     print(resp)
 
+with open("categories.json", "r") as f:
+    resp = client.bulk(body=[f.read()])
+    print(resp)
+
+with open("reviews_1.json", "r") as f:
+    resp = client.bulk(body=[f.read()])
+    print(resp)
+
 

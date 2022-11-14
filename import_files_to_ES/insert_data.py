@@ -8,32 +8,53 @@ sCat = Search(using=client, index="cat_1")
 sComp = Search(using=client, index="comp_1")
 sRev = Search(using=client, index="rev_1")
 
+##### list for sectors ######
+scanCat = [hit.to_dict() for hit in sCat.scan()]
+listCat = []
+for d in scanCat:
+    for d2 in d.values():
+        for l in d2.values():
+            for d3 in l:
+                parent_lname = d3["parentId"]
+                child_lname = d3["categoryId"]
+                child_dname = d3["displayName"]
+                for subchild_lname in d3["childrenCategories"]:
+                    listCat.append((parent_lname, child_lname, child_dname, subchild_lname))
 
-scanListCat = [hit.to_dict() for hit in sCat.scan()][0]["topCategories"]
-listCat = [(x["categoryId"], x["displayName"]) for x in scanListCat]
+##### list for companies ######
+listComp = []
+listLinkCompSectors = []
+for hit in sComp.scan():
+    for d in hit.to_dict()["businesses"]:
+        listComp.append((
+            d["businessUnitId"],
+            d["identifyingName"],
+            d["displayName"],
+            d["trustScore"],
+            d["logoUrl"],
+            d["location"]["address"],
+            d["location"]["city"],
+            d["location"]["zipCode"],
+            d["location"]["country"],
+            d["contact"]["website"],
+            d["contact"]["email"],
+            d["contact"]["phone"]
+            ))
+        ######## list for link sectors_company ######
+        for dd in d["categories"]:
+            listLinkCompSectors.append((d["businessUnitId"], dd["categoryId"]))
 
-scanDictSubCat = [hit.to_dict() for hit in sCat.scan()][0]["subCategories"]
-listSubCat = []
-for key, value in scanDictSubCat.items():
-    for d in value:
-        listSubCat.append((d["parentId"], d["categoryId"], d["displayName"]))
-
-scanListComp = [hit.to_dict() for hit in sComp.scan()][0]["businesses"]
-listComp = [(
-    x["businessUnitId"], x["identifyingName"], x["displayName"],
-    x["trustScore"], x["logoUrl"], x["location"]["address"],
-    x["location"]["city"], x["location"]["zipCode"], x["location"]["country"],
-    x["contact"]["website"], x["contact"]["email"], x["contact"]["phone"]
-    ) for x in scanListComp]
-
-scanListRev = [hit.to_dict() for hit in sRev.scan()][0]
+####### list for reviews #########
+scanDictRev = [hit.to_dict() for hit in sRev.scan()][0]
 listRev = [(
-    x["businessUnit"]["id"], x["reviews"]["id"], x["reviews"]["title"], x["reviews"]["text"],
-    x["reviews"]["dates"]["experiencedDate"], x["reviews"]["dates"]["publishedDate"], x["reviews"]["text"],
-    x["reviews"]["rating"], x["reviews"]["verification"]["isVerified"], x["reviews"]["consumer"]["id"],
-    x["reviews"]["consumer"]["displayName"], x["reviews"]["consumer"]["numberOfReviews"],
-    x["reviews"]["consumer"]["countryCode"], x["reviews"]["reply"]["message"], x["reviews"]["reply"]["publishedDate"]
-    ) for x in scanListRev]
+    scanDictRev["businessUnit"]["id"], x["id"], x["title"], x["text"],
+    x["dates"]["experiencedDate"], x["dates"]["publishedDate"],
+    x["rating"], x["labels"]["verification"]["isVerified"], x["consumer"]["id"],
+    x["consumer"]["displayName"], x["consumer"]["numberOfReviews"],
+    x["consumer"]["countryCode"],
+    None if x["reply"] is None else x["reply"]["message"],
+    None if x["reply"] is None else x["reply"]["publishedDate"]
+    ) for x in scanDictRev["reviews"]]
 
 
 
@@ -64,6 +85,8 @@ def insert_data_temp(conn, insert_sql, list_to_insert):
     try:
         c = conn.cursor()
         c.executemany(insert_sql, list_to_insert)
+        conn.commit()
+        return c.lastrowid
     except Error as e:
         print(e)
 
@@ -74,67 +97,55 @@ def insert_data_perm(conn, insert_sql):
     :return:
     """
     try:
-        d = conn.cursor()
-        d.execute(insert_sql)
+        c = conn.cursor()
+        c.execute(insert_sql)
+        conn.commit()
+        return c.lastrowid
+    except Error as e:
+        print(e)
+
+def delete_data(conn, delete_sql):
+    """ delete data from the delete_sql statement
+    :param conn: Connection object
+    :param delete_sql: a DELETE FROM statement
+    :return:
+    """
+    try:
+        c = conn.cursor()
+        c.execute(delete_sql)
+        conn.commit()
     except Error as e:
         print(e)
 
 
 def main():
-    database = r"/home/ubuntu/sqlite/project.db"
+    database = r"/home/utilisateur/Documents/datascientest/projet_data/projet_de/import_files_to_ES/project.db"
 
+    ################# DELETE TEMP TABLES ######################
+    sql_delete_temp_cat_table = """DELETE FROM ztemp_sectors;"""
+    sql_delete_temp_company_table = """DELETE FROM ztemp_company;"""
+    sql_delete_temp_review_table = """DELETE FROM ztemp_review;"""
+    sql_delete_temp_review_table = """DELETE FROM ztemp_review;"""
+    sql_delete_temp_lk_company_sectors_table = """DELETE FROM ztemp_lk_company_sectors"""
+
+    ################# INSERT TEMP TABLES ######################
     sql_insert_temp_cat_table = """
-    INSERT INTO ztemp_sector (label_name, display_name)
-    VALUES (?, ?)
-    ;"""
-
-    sql_insert_cat_table = """
-    INSERT INTO sector (label_name, display_name)
-    SELECT label_name, display_name from ztemp_sector
-    WHERE label_name not in (select label_name from sector)
-    ;"""
-
-    sql_insert_temp_subCat_table = """
-    INSERT INTO ztemp_subSectorLevel1 (sector_label_name, label_name, display_name)
-    VALUES (?, ?, ?)
-    ;"""
-
-    sql_insert_subCat_table = """
-    INSERT INTO subSectorLevel1 (sector_id, label_name, display_name)
-
-    SELECT t2.sector_id, t1.label_name, t1.display_name 
-    FROM ztemp_subSectorLevel1 t1
-    LEFT JOIN sector t2 ON t2.label_name = t1.sector_label_name
-    WHERE t1.label_name NOT IN
-    (
-        select label_name from subSectorLevel1
-    )
+    INSERT INTO ztemp_sectors (parent_label_name, child_label_name, child_display_name, subchild_label_name)
+    VALUES (?, ?, ?, ?)
     ;"""
 
     sql_insert_temp_company_table = """
     INSERT INTO ztemp_company (
-    subSector1_label_name, businessUnitId, website, display_name,
+    businessUnitId, website, display_name,
     score, logoUrl, postal_address, postal_city, postal_zipCode, 
     postal_country, contact_website, contact_email, contact_phone
     )
-    VALUES (?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ;"""
 
-    sql_insert_company_table = """
-    INSERT INTO company (
-    subSectorLevel1_id, businessUnitId, website, display_name,
-    score, logoUrl, postal_address, postal_city, postal_zipCode, 
-    postal_country, contact_website, contact_email, contact_phone
-    )
-    SELECT
-    t2.id, businessUnitId, website, display_name,
-    score, logoUrl, postal_address, postal_city, postal_zipCode, 
-    postal_country, contact_website, contact_email, contact_phone
-
-    FROM ztemp_company t1
-    LEFT JOIN subSectorLevel1 t2 ON t2.label_name = t1.subSector1_label_name
-
-    WHERE t1.businessUnitId NOT IN (select businessUnitId from company)
+    sql_insert_temp_company_sectors_table = """
+    INSERT INTO ztemp_lk_company_sectors (company_businessUnitId, subchild_label_name)
+    VALUES (?, ?)
     ;"""
 
     sql_insert_temp_review_table = """
@@ -144,8 +155,44 @@ def main():
     user_name, user_nbOfReviews, user_country, response_company,
     response_company_date
     )
-    VALUES (?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ;"""
+
+    ################# INSERT PERM TABLES ######################
+    sql_insert_cat_table = """
+    INSERT INTO sectors (parent_label_name, child_label_name, child_display_name, subchild_label_name)
+    SELECT DISTINCT parent_label_name, child_label_name, child_display_name, subchild_label_name
+    FROM ztemp_sectors
+    WHERE (parent_label_name, child_label_name, child_display_name, subchild_label_name) 
+        not in (select parent_label_name, child_label_name, child_display_name, subchild_label_name from sectors)
+    ;"""
+
+    sql_insert_company_table = """
+    INSERT INTO company (
+    businessUnitId, website, display_name,
+    score, logoUrl, postal_address, postal_city, postal_zipCode, 
+    postal_country, contact_website, contact_email, contact_phone
+    )
+    SELECT DISTINCT
+    t1.businessUnitId, t1.website, t1.display_name,
+    t1.score, t1.logoUrl, t1.postal_address, t1.postal_city, t1.postal_zipCode, 
+    t1.postal_country, t1.contact_website, t1.contact_email, t1.contact_phone
+
+    FROM ztemp_company t1
+
+    WHERE t1.businessUnitId NOT IN (select businessUnitId from company)
+    ;"""
+
+    sql_insert_lk_company_sectors_table = """
+    INSERT INTO link_company_sectors (company_id, sectors_id)
+    SELECT c.id, s.id
+    FROM ztemp_lk_company_sectors t
+    LEFT JOIN company c on c.businessUnitId = t.company_businessUnitId
+    LEFT JOIN sectors s on s.subchild_label_name = t.subchild_label_name
+    LEFT JOIN link_company_sectors l on l.company_id = c.id and l.sectors_id = s.id
+    WHERE (l.company_id is null or l.sectors_id is null)
+    GROUP BY c.id, s.id
+    """
     
     sql_insert_review_table = """
     INSERT INTO review (
@@ -154,14 +201,14 @@ def main():
     user_name, user_nbOfReviews, user_country, response_company,
     response_company_date
     )
-    SELECT
+    SELECT DISTINCT
     t2.id, reviewUnitId, review_title, review_text,
     experience_date, publish_date, rating, isVerified, user_id, 
     user_name, user_nbOfReviews, user_country, response_company,
     response_company_date
 
     FROM ztemp_review t1
-    LEFT JOIN company t2 ON t2.label_name = t1.company_label_name
+    LEFT JOIN company t2 ON t2.businessUnitId = t1.businessUnitId
 
     WHERE t1.reviewUnitId NOT IN (select reviewUnitId from review)
     ;"""
@@ -173,29 +220,23 @@ def main():
     # create tables
     if conn is not None:
 
-        # insert into temp cat table
+        # delete temp tables
+        delete_data(conn, sql_delete_temp_cat_table)
+        delete_data(conn, sql_delete_temp_lk_company_sectors_table)
+        delete_data(conn, sql_delete_temp_company_table)
+        delete_data(conn, sql_delete_temp_review_table)
+
+        # insert temp tables
         insert_data_temp(conn, sql_insert_temp_cat_table, listCat)
+        insert_data_temp(conn, sql_insert_temp_company_table, listComp)
+        insert_data_temp(conn, sql_insert_temp_company_sectors_table, listLinkCompSectors)
+        insert_data_temp(conn, sql_insert_temp_review_table, listRev)
 
-        # insert into cat table
+        # insert perm tables
         insert_data_perm(conn, sql_insert_cat_table)
-
-        # insert into temp subCat table
-        insert_data_temp(conn, sql_insert_temp_subCat_table, listSubCat)
-
-        # insert into subCat table
-        insert_data_perm(conn, sql_insert_subCat_table)
-
-        # insert into temp company table
-        insert_data_temp(sql_insert_temp_company_table, listComp)
-
-        # insert into company table
-        insert_data_perm(sql_insert_company_table)
-
-        # insert into temp review table
-        insert_data_temp(sql_insert_temp_review_table, listRev)
-
-        # insert into review table
-        insert_data_perm(sql_insert_review_table)
+        insert_data_perm(conn, sql_insert_company_table)    
+        insert_data_perm(conn, sql_insert_lk_company_sectors_table)
+        insert_data_perm(conn, sql_insert_review_table)
 
     else:
         print("Error! cannot create the database connection.")

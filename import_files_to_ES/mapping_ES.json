@@ -1,7 +1,14 @@
-PUT /reviews_1
+PUT /rev_1
 {
   "mappings" : {
     "properties" : {
+      "businessUnit" : {
+        "properties" : {
+          "id" : {
+            "type" : "keyword"
+            }
+          }
+        },
       "reviews" : {
         "properties" : {
           "consumer.countryCode" : {
@@ -111,7 +118,7 @@ PUT /reviews_1
 
 
 
-PUT /companies_2
+PUT /comp_1
 {
       "mappings" : {
         "properties" : {
@@ -194,465 +201,106 @@ PUT /companies_2
 
 
 
-
-
-
-
-
-
-
-
-
-
 PUT /cat_1
 {
-      "mappings" : {
-        "properties" : {
-          "subCategories" : {
-            "properties" : {
-              "animals_pets" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
+    "mappings":
+    {
+        "properties":
+        {
+            "subCategories":
+            {
+                "properties":
+                {
+                    "food_beverages_tobacco":
+                    {
+                        "type":"flattened"
+                    },
+                    "animals_pets":
+                    {
+                        "type":"flattened"
+                    },
+                    "money_insurance":
+                    {
+                        "type":"flattened"
+                    },
+                    "beauty_wellbeing":
+                    {
+                        "type":"flattened"
+                    },
+                    "construction_manufactoring":
+                    {
+                        "type":"flattened"
+                    },
+                    "education_training":
+                    {
+                        "type":"flattened"
+                    },
+                    "electronics_technology":
+                    {
+                        "type":"flattened"
+                    },
+                    "events_entertainment":
+                    {
+                        "type":"flattened"
+                    },
+                    "hobbies_crafts":
+                    {
+                        "type":"flattened"
+                    },
+                    "home_garden":
+                    {
+                        "type":"flattened"
+                    },
+                    "media_publishing":
+                    {
+                        "type":"flattened"
+                    },
+                    "restaurants_bars":
+                    {
+                        "type":"flattened"
+                    },
+                    "health_medical":
+                    {
+                        "type":"flattened"
+                    },
+                    "utilities":
+                    {
+                        "type":"flattened"
+                    },
+                    "home_services":
+                    {
+                        "type":"flattened"
+                    },
+                    "business_services":
+                    {
+                        "type":"flattened"
+                    },
+                    "legal_services_government":
+                    {
+                        "type":"flattened"
+                    },
+                    "public_local_services":
+                    {
+                        "type":"flattened"
+                    },
+                    "shopping_fashion":
+                    {
+                        "type":"flattened"
+                    },
+                    "sports":
+                    {
+                        "type":"flattened"
+                    },
+                    "travel_vacation":
+                    {
+                        "type":"flattened"
+                    },
+                    "vehicles_transportation":
+                    {
+                        "type":"flattened"
+                    }
                 }
-              },
-              "beauty_wellbeing" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "business_services" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "construction_manufactoring" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "education_training" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "electronics_technology" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "events_entertainment" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "food_beverages_tobacco" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "health_medical" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "hobbies_crafts" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "home_garden" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "home_services" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "legal_services_government" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "media_publishing" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "money_insurance" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "public_local_services" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "restaurants_bars" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "shopping_fashion" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "sports" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "travel_vacation" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "utilities" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              },
-              "vehicles_transportation" : {
-                "properties" : {
-                  "categoryId" : {
-                    "type" : "keyword"
-                  },
-                  "childrenCategories" : {
-                    "type" : "keyword"
-                  },
-                  "displayName" : {
-                    "type" : "keyword"
-                  },
-                  "numberOfBusinesses" : {
-                    "type" : "long"
-                  },
-                  "parentId" : {
-                    "type" : "keyword"
-                  }
-                }
-              }
             }
-          },
-          "topCategories" : {
-            "properties" : {
-              "categoryId" : {
-                "type" : "keyword"
-              },
-              "childrenCategories" : {
-                "type" : "keyword"
-              },
-              "displayName" : {
-                "type" : "keyword"
-              },
-              "numberOfBusinesses" : {
-                "type" : "long"
-              },
-              "parentId" : {
-                "type" : "keyword"
-              }
-            }
-          }
         }
-      }
     }
-;
-
-
-
+}

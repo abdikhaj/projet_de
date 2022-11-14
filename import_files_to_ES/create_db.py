@@ -16,4 +16,4 @@ def create_connection(db_file):
 
 
 if __name__ == '__main__':
-    create_connection(r"/home/ubuntu/sqlite/project.db")
+    create_connection(r"/home/utilisateur/Documents/datascientest/projet_data/projet_de/import_files_to_ES/project.db")

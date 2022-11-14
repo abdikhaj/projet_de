@@ -17,7 +17,6 @@ def create_connection(db_file):
 
     return conn
 
-
 def create_object(conn, create_table_sql):
     """ create a table or index from the create_table|index_sql statement
     :param conn: Connection object
@@ -30,9 +29,8 @@ def create_object(conn, create_table_sql):
     except Error as e:
         print(e)
 
-
 def main():
-    database = r"/home/ubuntu/sqlite/project.db"
+    database = r"/home/utilisateur/Documents/datascientest/projet_data/projet_de/import_files_to_ES/project.db"
 
     ##############################################
     # permanent tables
@@ -59,19 +57,18 @@ def main():
     ); """
 
     sql_create_review_index1 = """
-    CREATE UNIQUE INDEX rev_index1
+    CREATE UNIQUE INDEX IF NOT EXISTS rev_index1
     ON review(company_id, user_id);
     """
 
     sql_create_review_index2 = """
-    CREATE UNIQUE INDEX rev_index2
+    CREATE UNIQUE INDEX IF NOT EXISTS rev_index2
     ON review(reviewUnitId);
     """
 
     sql_create_company_table = """CREATE TABLE IF NOT EXISTS company (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     lastupdated_date TIMESTAMP default current_timestamp,
-    subSectorLevel1_id INTEGER,
     businessUnitId VARCHAR,
     website VARCHAR,
     display_name VARCHAR,
@@ -84,59 +81,52 @@ def main():
     contact_website VARCHAR,
     contact_email VARCHAR,
     contact_phone VARCHAR,
-    UNIQUE(website),
-    FOREIGN KEY (subSectorLevel1_id) REFERENCES subSectorLevel1 (id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+    UNIQUE(website)
     );"""
 
     sql_create_company_index1 = """
-    CREATE UNIQUE INDEX comp_index1
+    CREATE UNIQUE INDEX IF NOT EXISTS comp_index1
     ON company(businessUnitId);
     """
 
     sql_create_company_index2 = """
-    CREATE UNIQUE INDEX comp_index2
+    CREATE UNIQUE INDEX IF NOT EXISTS comp_index2
     ON company(display_name);
     """
 
-    sql_create_subSector_table = """CREATE TABLE IF NOT EXISTS subSectorLevel1 (
+    sql_create_sectors_table = """CREATE TABLE IF NOT EXISTS sectors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     lastupdated_date TIMESTAMP default current_timestamp,
-    sector_id INTEGER,
-    label_name VARCHAR,
-    display_name VARCHAR,
-    FOREIGN KEY (sector_id) REFERENCES sector (id)
+    parent_label_name VARCHAR,
+    parent_display_name VARCHAR,
+    child_label_name VARCHAR,
+    child_display_name VARCHAR,
+    subchild_label_name VARCHAR,
+    subchild_display_name VARCHAR
+    );"""
+
+    sql_create_sectors_index1 = """
+    CREATE UNIQUE INDEX IF NOT EXISTS sectors_index1
+    ON sectors(parent_label_name, child_label_name, subchild_label_name);
+    """
+
+    sql_create_link_company_sectors = """CREATE TABLE IF NOT EXISTS link_company_sectors (
+    lastupdated_date TIMESTAMP default current_timestamp,
+    company_id INTEGER,
+    sectors_id INTEGER,
+    FOREIGN KEY (sectors_id) REFERENCES sectors (id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (company_id) REFERENCES company (id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
     );"""
 
-    sql_create_subSector_index1 = """
-    CREATE UNIQUE INDEX subS_index1
-    ON subSectorLevel1(label_name);
+    sql_create_link_company_sectors_index1 = """
+    CREATE UNIQUE INDEX IF NOT EXISTS link_company_sectors_index1
+    ON link_company_sectors(company_id, sectors_id);
     """
-
-    sql_create_subSector_index2 = """
-    CREATE UNIQUE INDEX subS_index2
-    ON subSectorLevel1(display_name);
-    """
-
-    sql_create_sector_table = """CREATE TABLE IF NOT EXISTS sector (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    lastupdated_date TIMESTAMP default current_timestamp,
-    label_name VARCHAR,
-    display_name VARCHAR
-    );"""
-
-    sql_create_sector_index1 = """
-    CREATE UNIQUE INDEX sector_index1
-    ON sector(label_name);
-    """
-
-    sql_create_sector_index2 = """
-    CREATE UNIQUE INDEX sector_index2
-    ON sector(display_name);
-    """
+    
 
     sql_create_resume_table = """CREATE TABLE IF NOT EXISTS review_resume (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -151,7 +141,7 @@ def main():
     );"""
 
     sql_create_resume_index1 = """
-    CREATE UNIQUE INDEX resume_index1
+    CREATE UNIQUE INDEX IF NOT EXISTS resume_index1
     ON review_resume(company_id, resume_type);
     """
 
@@ -177,7 +167,6 @@ def main():
 
     sql_temp_create_company_table = """CREATE TABLE IF NOT EXISTS ztemp_company (
     lastupdated_date TIMESTAMP default current_timestamp,
-    subSector1_label_name VARCHAR,
     businessUnitId VARCHAR,
     website VARCHAR,
     display_name VARCHAR,
@@ -192,17 +181,20 @@ def main():
     contact_phone VARCHAR
     );"""
 
-    sql_temp_create_subSector_table = """CREATE TABLE IF NOT EXISTS ztemp_subSectorLevel1 (
+    sql_temp_create_sectors_table = """CREATE TABLE IF NOT EXISTS ztemp_sectors (
     lastupdated_date TIMESTAMP default current_timestamp,
-    sector_label_name VARCHAR,
-    label_name VARCHAR,
-    display_name VARCHAR
+    parent_label_name VARCHAR,
+    parent_display_name VARCHAR,
+    child_label_name VARCHAR,
+    child_display_name VARCHAR,
+    subchild_label_name VARCHAR,
+    subchild_display_name VARCHAR
     );"""
 
-    sql_temp_create_sector_table = """CREATE TABLE IF NOT EXISTS ztemp_sector (
+    sql_temp_create_lk_company_sectors_table = """CREATE TABLE IF NOT EXISTS ztemp_lk_company_sectors (
     lastupdated_date TIMESTAMP default current_timestamp,
-    label_name VARCHAR,
-    display_name VARCHAR
+    company_businessUnitId VARCHAR,
+    subchild_label_name VARCHAR
     );"""
 
 
@@ -212,23 +204,14 @@ def main():
     # create tables
     if conn is not None:
         ############################
-        # create review table
+        # create permanent tables
         create_object(conn, sql_create_review_table)
-
-        # create company table
         create_object(conn, sql_create_company_table)
-
-        # create subSector table
-        create_object(conn, sql_create_subSector_table)
-
-        # create sector table
-        create_object(conn, sql_create_sector_table)
-
-        # create resume table
+        create_object(conn, sql_create_sectors_table)
+        create_object(conn, sql_create_link_company_sectors)
         create_object(conn, sql_create_resume_table)
 
         ###############################
-
         # create index
         create_object(conn, sql_create_review_index1)
         create_object(conn, sql_create_review_index2)
@@ -236,26 +219,17 @@ def main():
         create_object(conn, sql_create_company_index1)
         create_object(conn, sql_create_company_index2)
 
-        create_object(conn, sql_create_subSector_index1)
-        create_object(conn, sql_create_subSector_index2)
-
-        create_object(conn, sql_create_sector_index1)
-        create_object(conn, sql_create_sector_index2)
+        create_object(conn, sql_create_sectors_index1)
+        create_object(conn, sql_create_link_company_sectors_index1)
 
         create_object(conn, sql_create_resume_index1)
 
         ###############################
-        # create temp review table
+        # create temp tables
         create_object(conn, sql_temp_create_review_table)
-
-        # create temp company table
         create_object(conn, sql_temp_create_company_table)
-
-        # create temp subSector table
-        create_object(conn, sql_temp_create_subSector_table)
-
-        # create temp sector table
-        create_object(conn, sql_temp_create_sector_table)
+        create_object(conn, sql_temp_create_sectors_table)
+        create_object(conn, sql_temp_create_lk_company_sectors_table)
     else:
         print("Error! cannot create the database connection.")
 
