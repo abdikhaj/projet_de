@@ -1,21 +1,19 @@
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
-import pandas as pd
+from custom_vars import vars
 
+#bulk categories
 client = Elasticsearch(hosts = "http://@localhost:9200")
-file_path = "/home/utilisateur/Documents/datascientest/projet_data/projet_de/html_to_es/files_to_import_to_es"
+with open("{file_path}/categories.json".format(file_path=vars("file_path_push_to_es")), "r") as f:
+    resp = client.bulk(body=[f.read()]) 
+    client.close()
 
-
-with open("{}/hotel_1.json".format(file_path), "r") as f:
+#bulk default companies 
+client = Elasticsearch(hosts = "http://@localhost:9200")
+with open("{file_path}/companies_default.json".format(file_path=vars("file_path_push_to_es")), "r") as f:
     resp = client.bulk(body=[f.read()])
-    print(resp)
+    client.close()
 
-with open("{}/categories.json".format(file_path), "r") as f:
-    resp = client.bulk(body=[f.read()])
-    print(resp)
-
-with open("{}/reviews_1.json".format(file_path), "r") as f:
-    resp = client.bulk(body=[f.read()])
-    print(resp)
-
-
+    """
+    with open("{file_path}/reviews_1.json".format(file_path=vars("file_path_push_to_es")), "r") as f:
+        resp = client.bulk(body=[f.read()])
+    """

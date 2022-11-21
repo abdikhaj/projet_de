@@ -6,7 +6,7 @@ from elasticsearch_dsl import Search
 client = Elasticsearch(hosts = "http://@localhost:9200")
 sCat = Search(using=client, index="cat_1")
 sComp = Search(using=client, index="comp_1")
-sRev = Search(using=client, index="rev_1")
+#sRev = Search(using=client, index="rev_1")
 
 db_path = "/home/utilisateur/Documents/datascientest/projet_data/projet_de/es_to_sqlite/project.db"
 
@@ -48,6 +48,7 @@ for hit in sComp.scan():
             listLinkCompSectors.append((d["businessUnitId"], dd["categoryId"]))
 
 ####### list for reviews #########
+"""
 scanDictRev = [hit.to_dict() for hit in sRev.scan()][0]
 listRev = [(
     scanDictRev["businessUnit"]["id"], x["id"], x["title"], x["text"],
@@ -58,7 +59,7 @@ listRev = [(
     None if x["reply"] is None else x["reply"]["message"],
     None if x["reply"] is None else x["reply"]["publishedDate"]
     ) for x in scanDictRev["reviews"]]
-
+"""
 
 
 
@@ -127,7 +128,6 @@ def main():
     ################# DELETE TEMP TABLES ######################
     sql_delete_temp_cat_table = """DELETE FROM ztemp_sectors;"""
     sql_delete_temp_company_table = """DELETE FROM ztemp_company;"""
-    sql_delete_temp_review_table = """DELETE FROM ztemp_review;"""
     sql_delete_temp_review_table = """DELETE FROM ztemp_review;"""
     sql_delete_temp_lk_company_sectors_table = """DELETE FROM ztemp_lk_company_sectors"""
 
@@ -227,19 +227,19 @@ def main():
         delete_data(conn, sql_delete_temp_cat_table)
         delete_data(conn, sql_delete_temp_lk_company_sectors_table)
         delete_data(conn, sql_delete_temp_company_table)
-        delete_data(conn, sql_delete_temp_review_table)
+        #delete_data(conn, sql_delete_temp_review_table)
 
         # insert temp tables
         insert_data_temp(conn, sql_insert_temp_cat_table, listCat)
         insert_data_temp(conn, sql_insert_temp_company_table, listComp)
         insert_data_temp(conn, sql_insert_temp_company_sectors_table, listLinkCompSectors)
-        insert_data_temp(conn, sql_insert_temp_review_table, listRev)
+        #insert_data_temp(conn, sql_insert_temp_review_table, listRev)
 
         # insert perm tables
         insert_data_perm(conn, sql_insert_cat_table)
         insert_data_perm(conn, sql_insert_company_table)    
         insert_data_perm(conn, sql_insert_lk_company_sectors_table)
-        insert_data_perm(conn, sql_insert_review_table)
+        #insert_data_perm(conn, sql_insert_review_table)
 
     else:
         print("Error! cannot create the database connection.")

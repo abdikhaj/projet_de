@@ -1,6 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
+
 db_path = "/home/utilisateur/Documents/datascientest/projet_data/projet_de/es_to_sqlite/project.db"
 
 def create_connection(db_file):
@@ -15,6 +16,4 @@ def create_connection(db_file):
         if conn:
             conn.close()
 
-
-if __name__ == '__main__':
-    create_connection(r"{}".format(db_path))
+create_connection("{db_path}".format(db_path=db_path))

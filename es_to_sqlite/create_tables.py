@@ -82,18 +82,12 @@ def main():
     postal_country VARCHAR,
     contact_website VARCHAR,
     contact_email VARCHAR,
-    contact_phone VARCHAR,
-    UNIQUE(website)
+    contact_phone VARCHAR
     );"""
 
     sql_create_company_index1 = """
     CREATE UNIQUE INDEX IF NOT EXISTS comp_index1
     ON company(businessUnitId);
-    """
-
-    sql_create_company_index2 = """
-    CREATE UNIQUE INDEX IF NOT EXISTS comp_index2
-    ON company(display_name);
     """
 
     sql_create_sectors_table = """CREATE TABLE IF NOT EXISTS sectors (
@@ -219,7 +213,6 @@ def main():
         create_object(conn, sql_create_review_index2)
 
         create_object(conn, sql_create_company_index1)
-        create_object(conn, sql_create_company_index2)
 
         create_object(conn, sql_create_sectors_index1)
         create_object(conn, sql_create_link_company_sectors_index1)
