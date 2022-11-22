@@ -66,6 +66,7 @@ Executer le projet dans l'order suivant:
         Ce script résume les avis et créé une liste de mots cles des avis, ces données sont agrégées par entreprise et par type de résumé.
 
         Les types de résumé sont:
+        
             - text_sat: résume les avis des utilisateurs satisfaits (score de 4/5 et 5/5)
             - text_unsat: résume les avis des utilisateurs non satisfaits (score de 1/5 et 2/5)
 
