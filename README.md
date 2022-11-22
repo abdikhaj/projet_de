@@ -68,18 +68,21 @@ Executer le projet dans l'order suivant:
 
         Les types de résumé sont:
      
-            - text_sat: résume les avis des utilisateurs satisfaits (score de 4/5 et 5/5)
-            - text_unsat: résume les avis des utilisateurs non satisfaits (score de 1/5 et 2/5)
+          - text_sat: résume les avis des utilisateurs satisfaits (score de 4/5 et 5/5)
+          - text_unsat: résume les avis des utilisateurs non satisfaits (score de 1/5 et 2/5)
 
         Les étapes pour résumer les avis et extraire les mots-clés sont détaillées ci-dessous:
         
-            1) extraction des données de la table review, le score 3/5 n'est pas pris en compte
-            2) concaténation des avis par entreprise 
-                - on obtient une 1ere liste des avis positifs et une 2eme liste des avis négatifs de la forme suivante:
+          1) extraction des données de la table review, le score 3/5 n'est pas pris en compte
+          2) concaténation des avis par entreprise
+
+               - on obtient une 1ere liste des avis positifs et une 2eme liste des avis négatifs de la forme suivante:
                 [("entreprise 1", "text_1. text_2."), ("entreprise 2", "text_1. text_2. ect.")]
-            3) résumé des avis en utilisant la librairie [gensim.summarization.summarizer](https://radimrehurek.com/gensim_3.8.3/summarization/summariser.html)
-                - on obtient une liste de la forme  suivante:
+          3) résumé des avis en utilisant la librairie [gensim.summarization.summarizer](https://radimrehurek.com/gensim_3.8.3/summarization/summariser.html)
+
+               - on obtient une liste de la forme  suivante:
                 [("entreprise 1", "text_1. text_2. text_3.", "resumé du champ précédent"), ("entreprise 2", "text_1. text_2. ect.", ""resumé du champ précédent")]
-            4) génération de la liste des mots clés en utilisant la fonction KeywordExtractor de la librairie [yake](https://pypi.org/project/yake/) sur le résumé des textes.
-                - on obtient une liste de la forme suivante:
+          4) génération de la liste des mots clés en utilisant la fonction KeywordExtractor de la librairie [yake](https://pypi.org/project/yake/) sur le résumé des textes.
+
+               - on obtient une liste de la forme suivante:
                 [("entreprise 1", "text_1. text_2. text_3.", "resumé du champ précédent", "mots-cles du résumé"), ("entreprise 2", "text_1. text_2. ect.", ""resumé du champ précédent", mots-clés du résumé)]
