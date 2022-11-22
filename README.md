@@ -40,11 +40,25 @@ Executer le projet dans l'order suivant:
         - company
 
 3) dossier html_to_es
-    1) update_reviews.py
-        - création d'une fonction update_reviews(liste_entreprise) permettant d'inserer des données dans la table review
+    1) update_reviews.py -> insert les données dans la table:
+        - update_reviews
+        Ce script créé une fonction update_reviews() qui prend une liste d'entreprise en parametre et permet d'alimenter la table update_reviews (scrape les données des avis, puis importe les donneés dans Elasticsearch, puis alimente la table)
 
 4) dossier es_to_sqlite
-    1) insert_reviews_resume.py -> insert les résumés et les mot-cles des avis agrégés par entreprise et par type de résumé.
-    Les types de résumé sont:
-        - text_sat: résume les avis des utilisateurs satisfaits (score de 4/5 ou 5/5)
-        - text_unsat: résume les avis des utilisateurs non satisfaits (score de 1/5 ou 2/5)
+    1) insert_reviews_resume.py -> insert les données dans la table:
+        - review_resume 
+        Ce script résume les avis et créé une liste de mots cles des avis, ces données sont agrégées par entreprise et par type de résumé.
+        Les types de résumé sont:
+            - text_sat: résume les avis des utilisateurs satisfaits (score de 4/5 et 5/5)
+            - text_unsat: résume les avis des utilisateurs non satisfaits (score de 1/5 et 2/5)
+        Les étapes pour résumer les avis et extraire les mots-clés sont détaillées ci-dessous:
+            - extraction des données de la table review, le score 3/5 n'est pas pris en compte
+            - concaténation des avis par entreprise 
+                - on obtient une 1ere liste des avis positifs et une 2eme liste des avis négatifs de la forme suivante:
+                [("entreprise 1", "text_1. text_2."), ("entreprise 2", "text_1. text_2. ect.")]
+            - résumé des avis en utilisant la librairie gensim.summarization.summarizer
+                - on obtient une liste de la forme  suivante:
+                [("entreprise 1", "text_1. text_2. text_3.", "resumé du champ précédent"), ("entreprise 2", "text_1. text_2. ect.", ""resumé du champ précédent")]
+            - création de la liste des mots clés en utilisant la fonction KeywordExtractor la librairie yake sur le résumé des textes.
+                - on obtient une liste de la forme suivante:
+                [("entreprise 1", "text_1. text_2. text_3.", "resumé du champ précédent", "mots-cles du résumé"), ("entreprise 2", "text_1. text_2. ect.", ""resumé du champ précédent", mots-clés du résumé)]
