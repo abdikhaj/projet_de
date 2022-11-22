@@ -36,6 +36,7 @@ Executer le projet dans l'order suivant:
     1) create_db.py -> création de la db project.db
 
     2) create_tables.py -> création des tables
+
         - sectors -> liste toutes les categories et sous catégories des entreprise. A noter qu'une entreprise peut appartenir à plusieurs sous categories (voir UML)
         - company -> liste toutes les entreprises
         - link_company_sectors -> permet de faire le lien entre la table sectors et company
@@ -71,14 +72,14 @@ Executer le projet dans l'order suivant:
             - text_unsat: résume les avis des utilisateurs non satisfaits (score de 1/5 et 2/5)
 
         Les étapes pour résumer les avis et extraire les mots-clés sont détaillées ci-dessous:
-        
+
             - extraction des données de la table review, le score 3/5 n'est pas pris en compte
             - concaténation des avis par entreprise 
                 - on obtient une 1ere liste des avis positifs et une 2eme liste des avis négatifs de la forme suivante:
                 [("entreprise 1", "text_1. text_2."), ("entreprise 2", "text_1. text_2. ect.")]
-            - résumé des avis en utilisant la librairie gensim.summarization.summarizer
+            - résumé des avis en utilisant la librairie [gensim.summarization.summarizer](https://radimrehurek.com/gensim_3.8.3/summarization/summariser.html)
                 - on obtient une liste de la forme  suivante:
                 [("entreprise 1", "text_1. text_2. text_3.", "resumé du champ précédent"), ("entreprise 2", "text_1. text_2. ect.", ""resumé du champ précédent")]
-            - création de la liste des mots clés en utilisant la fonction KeywordExtractor la librairie yake sur le résumé des textes.
+            - création de la liste des mots clés en utilisant la fonction KeywordExtractor de la librairie [yake](https://pypi.org/project/yake/) sur le résumé des textes.
                 - on obtient une liste de la forme suivante:
                 [("entreprise 1", "text_1. text_2. text_3.", "resumé du champ précédent", "mots-cles du résumé"), ("entreprise 2", "text_1. text_2. ect.", ""resumé du champ précédent", mots-clés du résumé)]
