@@ -1,0 +1,6 @@
+requests
+tqmd
+elasticsearch
+elasticsearch_dsl
+gensim.summarization.summarizer
+yake
