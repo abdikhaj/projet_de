@@ -6,9 +6,9 @@ Ce lien vous donne accès à un document de description de notre projet :
 https://docs.google.com/document/d/1vqq-mXVUuiHR_ijIjdI69I5Q9ZI3lWZGQKPnaKg5yiU/edit?usp=sharing
 
 
-Executer le projet dans l'order suivant:
+Dans le dossier **src**, executer le projet dans l'ordre suivant:
 
-1) dossier html_to_es
+1) dossier 1_from_html_to_es
 
     1) scraping_trustpilot.py
 
@@ -31,7 +31,7 @@ Executer le projet dans l'order suivant:
     3) bulk_es.py
         - importe les 2 fichies présents dans le point 1 dans elasticsearch via la méthode bulk
 
-2) dossier es_to_sqlite
+2) dossier 2_from_es_to_sqlite
 
     1) create_db.py -> création de la db project.db
 
@@ -52,19 +52,16 @@ Executer le projet dans l'order suivant:
         - company
         - link_comany_sectors
 
-3) dossier html_to_es
+3) dossier 3_from_sqlite_to_sqlite
 
-    1) update_reviews.py -> insert les données dans la table:
-        - update_reviews
+    1) update_reviews.py -> insert les données dans les tables:
+        - review
 
-        Ce script créé une fonction update_reviews() qui prend une liste d'entreprise en parametre et permet d'alimenter la table update_reviews (scrape les données des avis, puis importe les donneés dans Elasticsearch, puis alimente la table)
+        via la fonction **update_reviews()** qui prend une liste d'entreprise en parametre, ce sript permet d'alimenter la table review (scrape les données des avis, puis importe les donneés dans Elasticsearch, puis alimente la table review) en **insérant uniquement le delta des avis** (review) qui ne sont pas déjà insérés.
 
-4) dossier es_to_sqlite
-
-    1) insert_reviews_resume.py -> insert les données dans la table:
         - review_resume
 
-        Ce script résume les avis et créé une liste de mots cles des avis, ces données sont agrégées par entreprise et par type de résumé.
+        via la fonction **update_reviews_resume()** qui prend une liste d'entreprise en parametre. Cette fonction  résume les avis et créé une liste de mots cles des avis, ces données sont agrégées par entreprise et par type de résumé.
 
         Les types de résumé sont:
      
