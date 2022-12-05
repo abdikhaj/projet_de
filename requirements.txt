@@ -4,3 +4,6 @@ elasticsearch
 elasticsearch_dsl
 gensim.summarization.summarizer
 yake
+dash
+pandas
+dash-bootstrap-components
