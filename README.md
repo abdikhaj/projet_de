@@ -84,14 +84,15 @@ Dans le dossier **src**, executer le projet dans l'ordre suivant:
                - on obtient une liste de la forme suivante:
                 [("entreprise 1", "text_1. text_2. text_3.", "resumé du champ précédent", "mots-cles du résumé"), ("entreprise 2", "text_1. text_2. ect.", ""resumé du champ précédent", mots-clés du résumé)]
 
-Dossier Dash : 
- -Télécharger les librairies suivantes : 
+4) Dossier Dash :
+
+ - Télécharger les librairies suivantes : 
         pip install dash
         pip install pandas
         pip install dash-bootstrap-components
- -Préciser l’emplacement actuelle de BDD (project.db) :
+ - Préciser l’emplacement actuelle de BDD (project.db) :
         conn = sqlite3.connect('C:…./projet_de/src/2_from_es_to_sqlite/project.db') 
- -Lancer le scripte :
+ - Lancer le scripte :
         Sélectionner le lien pour accéder au Dashboard 
         Sélection dans l’ordre suivant :
                       Catégorie
