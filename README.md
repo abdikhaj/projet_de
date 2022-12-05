@@ -86,10 +86,6 @@ Dans le dossier **src**, executer le projet dans l'ordre suivant:
 
 4) Dossier Dash :
 
- - Télécharger les librairies suivantes : 
-        pip install dash
-        pip install pandas
-        pip install dash-bootstrap-components
  - Préciser l’emplacement actuelle de BDD (project.db) :
         conn = sqlite3.connect('C:…./projet_de/src/2_from_es_to_sqlite/project.db') 
  - Lancer le scripte :
